@@ -42,7 +42,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          tags: ghcr.io/external-secrets/bitwarden-sdk-server:${{ steps.prep.outputs.VERSION }}
+          tags: ghcr.io/mrtntome/bitwarden-sdk-server:${{ steps.prep.outputs.VERSION }}
           push: true
           platforms: linux/amd64,linux/arm64
       - name: Install Helm
@@ -51,4 +51,4 @@ jobs:
         run: |
           helm registry login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
           helm package --version ${{ steps.prep.outputs.VERSION }} --app-version ${{ steps.prep.outputs.VERSION }} ./deploy/charts/bitwarden-sdk-server
-          helm push ${{ github.event.repository.name }}-${{ steps.prep.outputs.VERSION }}.tgz oci://ghcr.io/external-secrets/charts
+          helm push ${{ github.event.repository.name }}-${{ steps.prep.outputs.VERSION }}.tgz oci://ghcr.io/mrtntome/charts
